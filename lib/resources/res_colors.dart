@@ -7,6 +7,10 @@ class ResColors {
   static const dark = Color(0xFF000000);
   static const white = Color(0xFFFFFFFF);
   static const error = Color(0xFFB00020);
+  static const success = Color(0xFF00C853);
+  static const black = Color(0xFF000000);
+  static const failed = Color(0xFFB00020);
+  static const info = Color(0xFF2196F3);
 
   // Primary Swatch
   static const primarySwatch = material.MaterialColor(

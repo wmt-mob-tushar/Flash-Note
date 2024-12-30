@@ -1,0 +1,29 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+fastlane_require 'dotenv'
+before_all do
+  Dotenv.overload '.env'
+end
+platform :android do
+  desc "Deploy a new version to the Google Play"
+  lane :deploy do
+    properties = property_file_read(file: "./local.properties")
+    flutter_version_code = properties["flutter.versionCode"]
+    flutter_version_name = properties["flutter.versionName"]
+    upload_to_play_store(version_name:"#{flutter_version_code}(#{flutter_version_name})",)
+  end
+end

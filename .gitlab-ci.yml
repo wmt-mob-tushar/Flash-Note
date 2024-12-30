@@ -1,0 +1,75 @@
+stages:
+  - build
+  - clean
+
+build_android: #Job name
+  stage: build # Stage related to build
+  needs: []
+  before_script:
+    - flutter clean
+    - flutter pub get
+    - flutter gen-l10n
+  script:
+    - flutter build appbundle
+  artifacts:
+    paths:
+      - build/app/outputs/bundle/release/app-release.aab
+      - android/local.properties
+    expire_in: 5 hours
+  only:
+      - main
+  tags:
+    - mobile
+
+build_ios: #Job name
+  stage: build # Stage related to build
+  needs: []
+  before_script:
+    - flutter clean
+    - flutter pub get
+    - flutter gen-l10n
+    - cd ios
+    - pod install
+  script:
+    - fastlane build
+  artifacts:
+    paths:
+      - ios/build/Runner.ipa
+    expire_in: 5 hours
+  only:
+    - main
+  tags:
+    - mobile
+
+upload_to_android_store: #Job name
+  stage: build # Stage related to build
+  needs: [build_android] #Job Name that need to be completed before this started
+  before_script:
+    - cd android
+  script:
+    - fastlane deploy
+  only:
+      - main
+  tags:
+      - mobile
+
+upload_to_ios_store: #Job name
+  stage: build # Stage related to build
+  needs: [build_ios] #Job Name that need to be completed before this started
+  before_script:
+    - cd ios
+  script:
+    - fastlane deploy
+  only:
+    - main
+  tags:
+    - mobile
+
+clean_build:
+  stage: clean
+  script:
+    - rm -rf /Users/wmtm11/build
+  only:
+    - main
+  tags:
+    - mobile
