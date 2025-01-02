@@ -1,8 +1,20 @@
 {
   "helloWorld": "Hello World",
-
-
-
+  "flash": "Flash",
+  "note": "Note",
+  "tapToSkip": "Tap to skip",
+  "onboardingTitle1": "Stay Organized, Effortlessly",
+  "onboardingSubtitle1": "AI-powered notes and tasks to simplify your day.",
+  "onboardingTitle2": "Your Ideas, Seamlessly Managed",
+  "onboardingSubtitle2": "Capture, organize, and execute your thoughts with ease.",
+  "onboardingTitle3": "Achieve More with AI",
+  "onboardingSubtitle3": "Smart suggestions to prioritize and complete tasks.",
+  "enterEmail": "Please enter your email.",
+  "invalidEmailId": "Please enter a valid email address.",
+  "enterPassword": "Please enter your password.",
+  "passwordValidation": "Password must meet the required criteria.",
+  "enterConfirmPassword": "Please confirm your password.",
+  "passwordDoesNotMatch": "Passwords do not match.",
 
   "@_COMMANDS": {
     "flutter gen-l10n": "Run this command in terminal after adding new value to localization."

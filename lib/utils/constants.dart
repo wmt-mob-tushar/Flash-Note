@@ -17,3 +17,9 @@ extension AppLocalizationsExtension on BuildContext {
     return localizations!;
   }
 }
+
+class FontFamily {
+  static const String primary = 'Archivo';
+  static const String secondary = 'Poppins';
+  static const String tertiary = 'BillionDreams';
+}

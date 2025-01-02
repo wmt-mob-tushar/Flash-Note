@@ -11,6 +11,8 @@ class AppReducer {
         return state.copyWith(user: action.data as Wrapper<User>);
       case ActionType.SetToken:
         return state.copyWith(token: action.data as Wrapper<String>);
+      case ActionType.isOnboardingComplete:
+        return state.copyWith(isOnboardingComplete: action.data as Wrapper<bool>);
       case ActionType.Reset:
         return state.copyWith(
           token: Wrapper.value(null),

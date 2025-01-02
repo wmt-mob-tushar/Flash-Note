@@ -2,18 +2,26 @@ import 'dart:io';
 
 import 'package:flash_note/redux/app_state.dart';
 import 'package:flash_note/redux/app_store.dart';
+import 'package:flash_note/resources/res_colors.dart';
+import 'package:flash_note/screens/auth/home/home.dart';
+import 'package:flash_note/screens/auth/notes/notes.dart';
+import 'package:flash_note/screens/auth/notes_details/notes_details.dart';
+import 'package:flash_note/screens/auth/profile/profile.dart';
+import 'package:flash_note/screens/non_auth/login/login.dart';
+import 'package:flash_note/screens/non_auth/onboarding/onboarding.dart';
+import 'package:flash_note/screens/non_auth/sign_up/sign_up.dart';
+import 'package:flash_note/screens/splash/splash.dart';
+import 'package:flash_note/utils/constants.dart';
 import 'package:flash_note/utils/navigation_service.dart';
 import 'package:flash_note/utils/routes.dart';
 import 'package:flash_note/utils/security_utils.dart';
 import 'package:flash_note/utils/shared_pref_utils.dart';
-import 'package:flash_note/utils/notification_handler.dart';
 import 'package:flash_note/utils/connection_checker.dart';
-import 'package:flash_note/utils/track_active_devices.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
@@ -94,7 +102,7 @@ class _MyAppState extends State<MyApp> {
             return MaterialApp(
               navigatorKey: NavigationService.instance.navigationKey,
               initialRoute: Routes.splash,
-              onGenerateRoute: (settings) => Routes.routeCalled(settings),
+              onGenerateRoute: (settings) => routeCalled(settings),
               locale: Locale(selectedLocale ?? "en"),
               localizationsDelegates: const [
                 AppLocalizations.delegate,
@@ -107,6 +115,12 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 useMaterial3: true,
+                fontFamily: FontFamily.primary,
+                primarySwatch: ResColors.primarySwatch,
+                colorScheme: ColorScheme.fromSeed(
+                  seedColor: ResColors.primary,
+                  surface: ResColors.black,
+                ),
               ),
             );
           },
@@ -116,11 +130,64 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  static Route<dynamic>? routeCalled(RouteSettings settings) {
+    switch (settings.name) {
+      case Routes.splash:
+        return MaterialPageRoute(
+          builder: (context) => const Splash(),
+        );
+      case Routes.onBoardingRoute:
+        return CustomPageRoute(
+          child: const Onboarding(),
+          slideDirection: SlideDirection.right,
+        );
+      case Routes.loginRoute:
+        return CustomPageRoute(
+          child: const Login(),
+          slideDirection: SlideDirection.right,
+        );
+      case Routes.signUpRoute:
+        return MaterialPageRoute(
+          builder: (context) => const SignUp(),
+        );
+      case Routes.homeRoute:
+        return MaterialPageRoute(
+          builder: (context) => const Home(),
+        );
+      case Routes.notesRoute:
+        return MaterialPageRoute(
+          builder: (context) => const Notes(),
+        );
+      case Routes.noteDetailsRoute:
+        final args = settings.arguments as Map<String, dynamic>?;
+        return MaterialPageRoute(
+          builder: (context) => NotesDetails(
+              /*noteId: args?['noteId'],
+            title: args?['title'],
+            content: args?['content'],*/
+              ),
+        );
+      case Routes.profileRoute:
+        return MaterialPageRoute(
+          builder: (context) => const Profile(),
+        );
+
+      default:
+        return MaterialPageRoute(
+          builder: (context) => const Scaffold(
+            body: Center(
+              child: Text('Route not found!'),
+            ),
+          ),
+        );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: mainBuilder,
-      designSize: const Size(390, 844),
+      designSize: const Size(375, 812),
     );
   }
 

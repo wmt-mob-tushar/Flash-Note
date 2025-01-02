@@ -5,4 +5,4 @@ class StoreAction<T> {
   StoreAction({required this.type, required this.data});
 }
 
-enum ActionType { ChangeLocale, SetUser, SetToken, Reset }
+enum ActionType { ChangeLocale, SetUser, SetToken, Reset , isOnboardingComplete}

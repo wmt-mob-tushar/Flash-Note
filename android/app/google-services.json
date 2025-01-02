@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "834628957291",
+    "project_id": "flash-note-fb382",
+    "storage_bucket": "flash-note-fb382.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834628957291:android:4c3017e6f10013955fad2e",
+        "android_client_info": {
+          "package_name": "com.example.flash_note"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgiSUu7nm878OZuugr64EKw5AeIkxy3vY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

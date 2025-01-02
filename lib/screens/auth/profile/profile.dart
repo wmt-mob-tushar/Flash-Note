@@ -1,17 +1,17 @@
-import 'package:flash_note/screens/non_auth/sign_up/bloc/sign_up_bloc.dart';
+import 'package:flash_note/screens/auth/profile/bloc/profile_bloc.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<SignUp> createState() {
-    return _SignUpState();
+  State<Profile> createState() {
+    return _ProfileState();
   }
 }
 
-class _SignUpState extends State<SignUp> {
-  final SignUpBloc _bloc = SignUpBloc();
+class _ProfileState extends State<Profile> {
+  final ProfileBloc _bloc = ProfileBloc();
 
 
   @override

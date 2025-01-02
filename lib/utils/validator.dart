@@ -1,58 +1,59 @@
 import 'package:flash_note/utils/constants.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Validator {
-  static String? email(String value) {
-    if (value.isEmpty) {
-      return 'Please enter email.';
+  static String? email(String? value, AppLocalizations? l10n) {
+    if (value?.isEmpty ?? true) {
+      return l10n?.enterEmail ?? "";
     }
-    if (!Regex.EMAIL.hasMatch(value)) {
-      return 'Please enter valid email.';
+    if (!Regex.EMAIL.hasMatch(value ?? "")) {
+      return l10n?.invalidEmailId ?? "";
     }
 
     return null;
   }
 
-  static String? emailOptional(String value) {
+  static String? emailOptional(String value, AppLocalizations? l10n) {
     if (value.isEmpty) {
       return null;
     }
     if (!Regex.EMAIL.hasMatch(value)) {
-      return 'Please enter valid email.';
+      return l10n?.invalidEmailId ?? "";
     }
 
     return null;
   }
 
-  static String? password(String value) {
-    if (value.isEmpty) {
-      return 'Please enter password';
+  static String? password(String? value, AppLocalizations? l10n) {
+    if (value?.isEmpty ?? true) {
+      return l10n?.enterPassword ?? "";
     }
-    if (!Regex.PASSWORD.hasMatch(value)) {
-      return "Please enter valid password.";
-    }
-
-    return null;
-  }
-
-  static String? passwordSignIn(String value) {
-    if (value.isEmpty) {
-      return 'Please enter password';
+    if (!Regex.PASSWORD.hasMatch(value ?? "")) {
+      return l10n?.passwordValidation ?? "";
     }
 
     return null;
   }
 
-  static String? confirmPassword(String value, String password) {
-    if (password.isEmpty) {
-      return null;
+  static String? passwordSignIn(String? value, AppLocalizations? l10n) {
+    if (value?.isEmpty ?? true) {
+      return l10n?.enterPassword ?? "";
     }
-    if (value.isEmpty) {
-      return 'Please enter password';
+
+    return null;
+  }
+
+  static String? confirmPassword(
+    String? value,
+    String? password,
+    AppLocalizations? l10n,
+  ) {
+    if (value?.isEmpty ?? true) {
+      return l10n?.enterConfirmPassword ?? "";
     }
     if (value != password) {
-      return "Password does not match.";
+      return l10n?.passwordDoesNotMatch ?? "";
     }
-
     return null;
   }
 
