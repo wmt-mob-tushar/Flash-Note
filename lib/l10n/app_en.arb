@@ -15,6 +15,20 @@
   "passwordValidation": "Password must meet the required criteria.",
   "enterConfirmPassword": "Please confirm your password.",
   "passwordDoesNotMatch": "Passwords do not match.",
+  "email": "Email",
+  "password": "Password",
+  "confirmPassword": "Confirm Password",
+  "login": "Login",
+  "signUp": "Sign Up",
+  "singInWithGoogle": "Sign in with Google",
+  "dontHaveAnAccount": "Don't have an account?",
+  "or": "Or",
+  "loginSuccess": "Login Successful",
+  "signUpSuccess": "Sign Up Successful",
+  "alredyHaveAnAccount": "Already have an account?",
+  "userName": "User Name",
+  "enterUserName": "Please enter your user name.",
+  "signupSuccess": "Sign Up Successful",
 
   "@_COMMANDS": {
     "flutter gen-l10n": "Run this command in terminal after adding new value to localization."

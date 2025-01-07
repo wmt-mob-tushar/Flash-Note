@@ -8,15 +8,15 @@ class AppReducer {
       case ActionType.ChangeLocale:
         return state.copyWith(selectedLocale: action.data as String);
       case ActionType.SetUser:
-        return state.copyWith(user: action.data as Wrapper<User>);
+        return state.copyWith(user: action.data as User);
       case ActionType.SetToken:
-        return state.copyWith(token: action.data as Wrapper<String>);
+        return state.copyWith(token: action.data as String);
       case ActionType.isOnboardingComplete:
-        return state.copyWith(isOnboardingComplete: action.data as Wrapper<bool>);
+        return state.copyWith(isOnboardingComplete: action.data as bool);
       case ActionType.Reset:
         return state.copyWith(
-          token: Wrapper.value(null),
-          user: Wrapper.value(null),
+          token: "",
+          isOnboardingComplete: false,
         );
       default:
         return state;

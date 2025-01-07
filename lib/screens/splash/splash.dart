@@ -1,11 +1,12 @@
 import 'dart:ui';
 import 'package:flash_note/l10n/l10n.dart';
 import 'package:flash_note/redux/app_store.dart';
+import 'package:flash_note/resources/res_colors.dart';
 import 'package:flash_note/utils/constants.dart';
+import 'package:flash_note/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flash_note/utils/routes.dart';
-import 'package:flash_note/resources/res_colors.dart';
+import 'package:snug_logger/snug_logger.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -84,18 +85,22 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       Future.delayed(const Duration(milliseconds: 500)).then(
         (_) => Navigator.pushReplacementNamed(
           context,
-          AppStore.store!.state.isOnboardingComplete
-              ? Routes.loginRoute
-              : Routes.onBoardingRoute,
+          pageRedirect(),
         ),
       );
     });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  String pageRedirect() {
+    final store = AppStore.store;
+    if (store?.state.user != null) {
+      return Routes.homeRoute;
+    } else {
+      if(store?.state.isOnboardingComplete == false) {
+        return Routes.onBoardingRoute;
+      }
+      return Routes.loginRoute;
+    }
   }
 
   @override
@@ -139,7 +144,6 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                   color: ResColors.black.withAlpha(100),
                 ),
               ),
-              // Centered text with glass effect
               Center(
                 child: Opacity(
                   opacity: _fadeAnimation.value,
@@ -149,17 +153,21 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                       Text(
                         l10n?.flash ?? '',
                         style: TextStyle(
-                          fontSize: 100.sp,
+                          fontSize: 140.sp,
                           fontFamily: FontFamily.tertiary,
                           color: ResColors.white,
+                          letterSpacing: 1.5.w,
+                          height: 1.h,
                         ),
                       ),
                       Text(
                         l10n?.note ?? '',
                         style: TextStyle(
-                          fontSize: 100.sp,
+                          fontSize: 140.sp,
                           color: ResColors.white,
                           fontFamily: FontFamily.tertiary,
+                          letterSpacing: 1.5.w,
+                          height: 1.h,
                         ),
                       ),
                     ],
@@ -171,5 +179,11 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
         },
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

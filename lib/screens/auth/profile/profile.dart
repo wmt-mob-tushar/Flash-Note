@@ -13,13 +13,10 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   final ProfileBloc _bloc = ProfileBloc();
 
-
   @override
   void initState() {
     super.initState();
-
   }
-
 
   @override
   Widget build(BuildContext context) {

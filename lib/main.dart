@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flash_note/redux/app_state.dart';
 import 'package:flash_note/redux/app_store.dart';
 import 'package:flash_note/resources/res_colors.dart';
@@ -14,16 +13,13 @@ import 'package:flash_note/screens/splash/splash.dart';
 import 'package:flash_note/utils/constants.dart';
 import 'package:flash_note/utils/navigation_service.dart';
 import 'package:flash_note/utils/routes.dart';
-import 'package:flash_note/utils/security_utils.dart';
 import 'package:flash_note/utils/shared_pref_utils.dart';
-import 'package:flash_note/utils/connection_checker.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 
 void main() async {
@@ -41,9 +37,9 @@ void main() async {
   // </array>
   //
   // for more information visit https://pub.dev/packages/jailbreak_root_detection
-  if (await SecurityUtils().isDeviceCompromised()) {
-    exit(0);
-  }
+  // if (await SecurityUtils().isDeviceCompromised()) {
+  //   exit(0);
+  // }
 
   //
   //  turn this on when you want security on dev mode as well
@@ -53,6 +49,7 @@ void main() async {
   //
 
   await SharedPrefUtils.init();
+  await Firebase.initializeApp();
   final store = await AppStore.init();
   runApp(MyApp(store: store));
 }
@@ -142,9 +139,8 @@ class _MyAppState extends State<MyApp> {
           slideDirection: SlideDirection.right,
         );
       case Routes.loginRoute:
-        return CustomPageRoute(
-          child: const Login(),
-          slideDirection: SlideDirection.right,
+        return MaterialPageRoute(
+          builder: (context) => const Login(),
         );
       case Routes.signUpRoute:
         return MaterialPageRoute(
@@ -161,7 +157,7 @@ class _MyAppState extends State<MyApp> {
       case Routes.noteDetailsRoute:
         final args = settings.arguments as Map<String, dynamic>?;
         return MaterialPageRoute(
-          builder: (context) => NotesDetails(
+          builder: (context) => const NotesDetails(
               /*noteId: args?['noteId'],
             title: args?['title'],
             content: args?['content'],*/

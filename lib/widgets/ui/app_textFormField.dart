@@ -23,9 +23,8 @@ class AppTextFormField extends StatelessWidget {
   final Color? hintColor;
   final Color? borderColor;
   final Color textColor;
-  final bool isPassword;
+  final bool? isPassword;
   final FocusNode? focusNode;
-  final VoidCallback? onPasswordVisibilityToggle;
 
   const AppTextFormField({
     super.key,
@@ -48,10 +47,9 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.hintColor,
     this.borderColor,
-    this.textColor =  ResColors.white,
-    this.isPassword = false,
+    this.textColor = ResColors.white,
+    this.isPassword,
     this.focusNode,
-    this.onPasswordVisibilityToggle,
   });
 
   @override
@@ -67,12 +65,11 @@ class AppTextFormField extends StatelessWidget {
         fontSize: 16.sp,
       ),
       readOnly: readOnly,
-
       enabled: enabled,
-      obscureText: isPassword,
+      obscureText: isPassword ?? false,
       keyboardType: keyboardType,
       validator: validator,
-      maxLines: isPassword ? 1 : maxLines,
+      maxLines: isPassword ?? false ? 1 : maxLines,
       textCapitalization: textCapitalization,
       onChanged: onChanged,
       onTap: onTap,
@@ -87,26 +84,14 @@ class AppTextFormField extends StatelessWidget {
           color: textColor,
           fontSize: 14.sp,
         ),
+        contentPadding: EdgeInsets.all(12.w),
         prefixIcon: prefixIcon != null
             ? Icon(
-          prefixIcon,
-          color: textColor,
-        )
+                prefixIcon,
+                color: textColor,
+              )
             : null,
-        suffixIcon: isPassword
-            ? IconButton(
-          icon: Icon(
-            isPassword ? Icons.visibility : Icons.visibility_off,
-            color: textColor,
-          ),
-          onPressed: onPasswordVisibilityToggle,
-        )
-            : suffixWidget != null
-            ? IconTheme(
-          data: IconThemeData(color: textColor),
-          child: suffixWidget!,
-        )
-            : null,
+        suffixIcon: suffixWidget,
         errorStyle: TextStyle(
           color: ResColors.error,
           fontSize: 12.sp,
@@ -115,7 +100,6 @@ class AppTextFormField extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
             color: borderColor ?? textColor,
-            width: 1,
           ),
         ),
         focusedBorder: OutlineInputBorder(
@@ -128,7 +112,7 @@ class AppTextFormField extends StatelessWidget {
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: const BorderSide(
-            color:  ResColors.error,
+            color: ResColors.error,
             width: 1,
           ),
         ),

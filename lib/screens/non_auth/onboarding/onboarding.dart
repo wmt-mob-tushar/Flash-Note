@@ -25,37 +25,39 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
   late AnimationController _illustrationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
-  late List<OnboardingItem> onboardingItems;
+
+  late List<OnboardingItem> onboardingItems = [
+    OnboardingItem(
+      title: 'Welcome to Flash Note',
+      subtitle: 'The best way to take notes and stay organized',
+      imagePath: ResAssets.onboarding1,
+      backgroundColor: ResColors.primary,
+    ),
+    OnboardingItem(
+      title: 'Organize your notes',
+      subtitle: 'Keep your notes organized and easy to find',
+      imagePath: ResAssets.onboarding2,
+      backgroundColor: ResColors.secondary,
+    ),
+    OnboardingItem(
+      title: 'Stay productive',
+      subtitle: 'Stay productive and never forget a thing',
+      imagePath: ResAssets.onboarding3,
+      backgroundColor: ResColors.primary,
+    ),
+  ];
 
   @override
   void initState() {
     super.initState();
     _setupAnimations();
-    _bloc.currentPage.listen((page) {
-      _illustrationController.forward(from: 0.0);
-    });
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      onboardingItems = [
-        OnboardingItem(
-          title: context.l10n?.onboardingTitle1 ?? '',
-          subtitle: context.l10n?.onboardingSubtitle1 ?? '',
-          imagePath: ResAssets.onboarding1,
-          backgroundColor: ResColors.primary,
-        ),
-        OnboardingItem(
-          title: context.l10n?.onboardingTitle2 ?? '',
-          subtitle: context.l10n?.onboardingSubtitle2 ?? '',
-          imagePath: ResAssets.onboarding2,
-          backgroundColor: ResColors.secondary,
-        ),
-        OnboardingItem(
-          title: context.l10n?.onboardingTitle3 ?? '',
-          subtitle: context.l10n?.onboardingSubtitle3 ?? '',
-          imagePath: ResAssets.onboarding3,
-          backgroundColor: ResColors.primary,
-        ),
-      ];
-    });
+    _pageController.addListener(_handlePageChange);
+  }
+
+  void _handlePageChange() {
+    final page = _pageController.page!.round();
+    _bloc.updatePage(page);
+    _illustrationController.forward(from: 0.0);
   }
 
   void _setupAnimations() {
@@ -96,6 +98,23 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
     );
+  }
+
+  void redirectToNextPage() {
+    if (_bloc.currentPage.value == onboardingItems.length - 1) {
+      Navigator.pushReplacementNamed(
+        context,
+        Routes.loginRoute,
+      );
+      AppStore.store?.dispatch(
+        StoreAction(data: true, type: ActionType.isOnboardingComplete),
+      );
+    } else {
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
@@ -215,27 +234,11 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              // ignore: prefer-extracting-callbacks
               AnimatedCircularButton(
                 size: 100.w,
                 currentPage: snapshot.data ?? 0,
                 totalPages: onboardingItems.length,
-                onTap: () {
-                  if (snapshot.data == onboardingItems.length - 1) {
-                    Navigator.pushReplacementNamed(context, Routes.loginRoute);
-                    AppStore.store?.dispatch(
-                      StoreAction(
-                        type: ActionType.isOnboardingComplete,
-                        data: true,
-                      ),
-                    );
-                  } else {
-                    _pageController.nextPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut,
-                    );
-                  }
-                },
+                onTap: redirectToNextPage,
               ),
               SizedBox(height: 20.h),
             ],

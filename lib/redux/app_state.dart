@@ -34,15 +34,15 @@ class AppState {
 
   AppState copyWith({
     String? selectedLocale,
-    Wrapper<String?>? token,
-    Wrapper<User?>? user,
-    Wrapper<bool?>? isOnboardingComplete,
+    String? token,
+    User? user,
+    bool? isOnboardingComplete,
   }) =>
       AppState(
         selectedLocale: selectedLocale ?? _selectedLocale,
-        token: token != null ? token.value : _token,
-        user: user != null ? user.value : _user,
-        isOnboardingComplete: isOnboardingComplete?.value ?? _isOnboardingComplete,
+        token: token ?? _token,
+        user: user ?? _user,
+        isOnboardingComplete: isOnboardingComplete ?? _isOnboardingComplete,
       );
 
   Map<String, dynamic> toJson() {
@@ -53,11 +53,4 @@ class AppState {
     map['isOnboardingComplete'] = _isOnboardingComplete;
     return map;
   }
-}
-
-// This is user set the null values to the model class.
-class Wrapper<T> {
-  final T value;
-
-  Wrapper.value(this.value);
 }

@@ -19,8 +19,7 @@ class User {
   User copyWith({
     num? id,
     String? name,
-  }) =>
-      User(
+  }) =>     User(
         id: id ?? _id,
         name: name ?? _name,
       );

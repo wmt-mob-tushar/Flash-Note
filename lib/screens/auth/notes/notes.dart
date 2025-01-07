@@ -13,13 +13,10 @@ class Notes extends StatefulWidget {
 class _NotesState extends State<Notes> {
   final NotesBloc _bloc = NotesBloc();
 
-
   @override
   void initState() {
     super.initState();
-
   }
-
 
   @override
   Widget build(BuildContext context) {

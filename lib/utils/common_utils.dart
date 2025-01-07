@@ -7,6 +7,44 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:overlay_support/overlay_support.dart';
 
 class CommonUtils {
+  static void showToast(
+      String text, {
+        MessageType type = MessageType.SUCCESS,
+        Duration duration = const Duration(seconds: 2),
+      }) {
+    Color? color;
+    switch (type) {
+      case MessageType.SUCCESS:
+        color = ResColors.success;
+      case MessageType.FAILED:
+        color = ResColors.error;
+      case MessageType.INFO:
+        color = ResColors.info;
+    }
+    showOverlayNotification(
+          (context) => Material(
+        color: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(12.w),
+          margin: EdgeInsets.all(12.h),
+          width: 0.9.sw,
+          decoration: BoxDecoration(
+              color: color, borderRadius: BorderRadius.circular(5.r)),
+          child: Text(
+            text,
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: ResColors.white,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
+      duration: duration,
+      position: NotificationPosition.bottom,
+    );
+  }
+
   static void showLoading(
     BuildContext context, {
     Color loaderColor = Colors.transparent,

@@ -57,6 +57,13 @@ class Validator {
     return null;
   }
 
+  static String? name(String? value, AppLocalizations? l10n) {
+    if (value?.isEmpty ?? true) {
+      return l10n?.enterUserName ?? "";
+    }
+    return null;
+  }
+
   static String? customMsg(String value, String? msg) {
     if (value.trim().isEmpty) {
       return '$msg';
