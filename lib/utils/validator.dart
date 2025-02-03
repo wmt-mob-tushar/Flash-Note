@@ -64,8 +64,8 @@ class Validator {
     return null;
   }
 
-  static String? customMsg(String value, String? msg) {
-    if (value.trim().isEmpty) {
+  static String? customMsg(String? value, String? msg) {
+    if (value?.trim().isEmpty ?? true) {
       return '$msg';
     }
 

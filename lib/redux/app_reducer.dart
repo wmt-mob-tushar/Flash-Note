@@ -1,4 +1,4 @@
-import 'package:flash_note/networking/model/user.dart';
+import 'package:flash_note/networking/model/app_user.dart';
 import 'package:flash_note/redux/actions/store_action.dart';
 import 'package:flash_note/redux/app_state.dart';
 
@@ -8,7 +8,7 @@ class AppReducer {
       case ActionType.ChangeLocale:
         return state.copyWith(selectedLocale: action.data as String);
       case ActionType.SetUser:
-        return state.copyWith(user: action.data as User);
+        return state.copyWith(user: action.data as AppUser);
       case ActionType.SetToken:
         return state.copyWith(token: action.data as String);
       case ActionType.isOnboardingComplete:

@@ -83,7 +83,7 @@ class _LoginState extends State<Login> {
                     style: TextStyle(
                       fontSize: 28.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: ResColors.textPrimary,
                     ),
                   ),
                   SizedBox(height: 24.h),
@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                             snapshot.data ?? false
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                         validator: (value) =>
@@ -133,7 +133,7 @@ class _LoginState extends State<Login> {
                             gradient: LinearGradient(
                               colors: [
                                 Colors.transparent,
-                                ResColors.white.withAlpha(200),
+                                ResColors.black.withAlpha(200),
                               ],
                             ),
                           ),
@@ -143,7 +143,7 @@ class _LoginState extends State<Login> {
                       Text(
                         l10n?.or ?? '',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.black,
                           fontSize: 14.sp,
                         ),
                       ),
@@ -154,7 +154,7 @@ class _LoginState extends State<Login> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                ResColors.white.withAlpha(200),
+                                ResColors.black.withAlpha(200),
                                 Colors.transparent,
                               ],
                             ),
@@ -171,7 +171,7 @@ class _LoginState extends State<Login> {
                     text: TextSpan(
                       text: l10n?.dontHaveAnAccount ?? '',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 14.sp,
                       ),
                       children: [
@@ -179,7 +179,7 @@ class _LoginState extends State<Login> {
                         TextSpan(
                           text: l10n?.signUp ?? '',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),

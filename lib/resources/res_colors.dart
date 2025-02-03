@@ -11,6 +11,18 @@ class ResColors {
   static const black = Color(0xFF000000);
   static const failed = Color(0xFFB00020);
   static const info = Color(0xFF2196F3);
+  // Background Colors
+  static const Color background = Color(0xFFFFFFFF);
+  static const Color backgroundDark = Color(0xFFF5F5F5);
+  static const Color backgroundLight = Color(0xFFFAFAFA);
+  static const Color surfaceColor = Color(0xFFFFFFFF);
+
+  // Text Colors
+  static const Color textPrimary = Color(0xFF212121);
+  static const Color textSecondary = Color(0xFF757575);
+  static const Color textColorDisabled = Color(0xFFBDBDBD);
+  static const Color textColorLink = Color(0xFF2196F3);
+  static const Color textColorError = Color(0xFFE53935);
 
   // Primary Swatch
   static const primarySwatch = material.MaterialColor(

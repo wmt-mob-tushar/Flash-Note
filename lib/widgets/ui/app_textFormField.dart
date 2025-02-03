@@ -47,7 +47,7 @@ class AppTextFormField extends StatelessWidget {
     this.prefixIcon,
     this.hintColor,
     this.borderColor,
-    this.textColor = ResColors.white,
+    this.textColor = ResColors.textPrimary,
     this.isPassword,
     this.focusNode,
   });
@@ -105,7 +105,7 @@ class AppTextFormField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
           borderSide: BorderSide(
-            color: borderColor ?? ResColors.white,
+            color: borderColor ?? ResColors.black,
             width: 2,
           ),
         ),

@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                       fontSize: 28.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                   SizedBox(height: 24.h),
@@ -119,7 +119,7 @@ class _SignUpState extends State<SignUp> {
                             snapshot.data ?? false
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                         validator: (value) =>
@@ -138,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                     text: TextSpan(
                       text: l10n?.dontHaveAnAccount ?? '',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.black,
                         fontSize: 14.sp,
                       ),
                       children: [
@@ -146,7 +146,7 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                           text: l10n?.login ?? '',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                           ),

@@ -1,3 +1,5 @@
+import 'package:flash_note/resources/res_colors.dart';
+import 'package:flash_note/widgets/ui/commonBackground.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +12,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: ResColors.background,
+      drawer: const Drawer(),
+      body: CommonBackground(
+          isDrawer: true,
+          child: Container(
+      
+      ),),
+    );
   }
 }

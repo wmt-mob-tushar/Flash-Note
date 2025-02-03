@@ -1,14 +1,14 @@
-import 'package:flash_note/networking/model/user.dart';
+import 'package:flash_note/networking/model/app_user.dart';
 
 /// selectedLocale : "en"
 
 class AppState {
   String? _selectedLocale;
   String? _token;
-  User? _user;
+  AppUser? _user;
   bool _isOnboardingComplete;
 
-  User? get user => _user;
+  AppUser? get user => _user;
 
   String? get selectedLocale => _selectedLocale;
 
@@ -19,7 +19,7 @@ class AppState {
   AppState({
     String? selectedLocale,
     String? token,
-    User? user,
+    AppUser? user,
     bool isOnboardingComplete = false,
   })  : _selectedLocale = selectedLocale,
         _token = token,
@@ -29,13 +29,13 @@ class AppState {
   AppState.fromJson(json)
       : _selectedLocale = json?['selectedLocale'],
         _token = json?['token'],
-        _user = json?['user'] != null ? User.fromJson(json['user']) : null,
+        _user = json?['user'] != null ? AppUser.fromJson(json['user']) : null,
         _isOnboardingComplete = json?['isOnboardingComplete'] ?? false;
 
   AppState copyWith({
     String? selectedLocale,
     String? token,
-    User? user,
+    AppUser? user,
     bool? isOnboardingComplete,
   }) =>
       AppState(

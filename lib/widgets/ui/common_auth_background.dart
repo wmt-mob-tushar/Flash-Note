@@ -122,7 +122,7 @@ class _CommonAuthBackgroundState extends State<CommonAuthBackground> with Single
               Expanded(  // Wrap in Expanded
                 child: Container(
                   decoration: const BoxDecoration(
-                    color: ResColors.black,
+                    color: ResColors.white,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),

@@ -32,7 +32,7 @@ class CommonAppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.r),
             border: isOutlined
                 ? Border.all(
-                    color: color ?? ResColors.white,
+                    color: color ?? ResColors.black,
                     width: 1.w,
                   )
                 : null,
@@ -45,7 +45,7 @@ class CommonAppButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.white,
+                  color: ResColors.textPrimary,
                 ),
               ),
             ),

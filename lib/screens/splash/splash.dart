@@ -108,7 +108,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: ResColors.black,
+      backgroundColor: ResColors.white,
       body: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -141,7 +141,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                 child: Container(
-                  color: ResColors.black.withAlpha(100),
+                  color: ResColors.white.withAlpha(100),
                 ),
               ),
               Center(
@@ -155,7 +155,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                         style: TextStyle(
                           fontSize: 140.sp,
                           fontFamily: FontFamily.tertiary,
-                          color: ResColors.white,
+                          color: ResColors.textPrimary,
                           letterSpacing: 1.5.w,
                           height: 1.h,
                         ),
@@ -164,7 +164,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
                         l10n?.note ?? '',
                         style: TextStyle(
                           fontSize: 140.sp,
-                          color: ResColors.white,
+                          color: ResColors.textPrimary,
                           fontFamily: FontFamily.tertiary,
                           letterSpacing: 1.5.w,
                           height: 1.h,

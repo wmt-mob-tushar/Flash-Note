@@ -29,6 +29,8 @@
   "userName": "User Name",
   "enterUserName": "Please enter your user name.",
   "signupSuccess": "Sign Up Successful",
+  "back": "BACK",
+  "menu": "MENU",
 
   "@_COMMANDS": {
     "flutter gen-l10n": "Run this command in terminal after adding new value to localization."

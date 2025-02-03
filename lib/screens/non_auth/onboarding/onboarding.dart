@@ -122,7 +122,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
     final l10n = context.l10n;
 
     return Scaffold(
-      backgroundColor: ResColors.dark,
+      backgroundColor: ResColors.background,
       body: StreamBuilder<int>(
         stream: _bloc.currentPage.stream,
         builder: (context, snapshot) {
@@ -179,14 +179,14 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.r),
                             border: Border.all(
-                              color: ResColors.white,
+                              color: ResColors.textPrimary,
                               width: 1.w,
                             ),
                           ),
                           child: Text(
                             l10n?.tapToSkip ?? '',
                             style: TextStyle(
-                              color: ResColors.white,
+                              color: ResColors.textPrimary,
                               fontSize: 14.sp,
                             ),
                           ),
@@ -211,7 +211,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                               Text(
                                 onboardingItems[snapshot.data ?? 0].title,
                                 style: TextStyle(
-                                  color: ResColors.white,
+                                  color: ResColors.textPrimary,
                                   fontSize: 32.sp,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -221,7 +221,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                               Text(
                                 onboardingItems[snapshot.data ?? 0].subtitle,
                                 style: TextStyle(
-                                  color: ResColors.white.withAlpha(200),
+                                  color: ResColors.textPrimary.withAlpha(200),
                                   fontSize: 16.sp,
                                 ),
                                 textAlign: TextAlign.center,
@@ -235,7 +235,7 @@ class _OnboardingState extends State<Onboarding> with TickerProviderStateMixin {
                 ),
               ),
               AnimatedCircularButton(
-                size: 100.w,
+                size: 90.w,
                 currentPage: snapshot.data ?? 0,
                 totalPages: onboardingItems.length,
                 onTap: redirectToNextPage,

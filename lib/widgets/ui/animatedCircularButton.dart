@@ -76,7 +76,7 @@ class _AnimatedCircularButtonState extends State<AnimatedCircularButton>
         height: widget.size,
         decoration:const BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.black,
+          color: Colors.white,
         ),
         child: Stack(
           children: [
@@ -135,9 +135,9 @@ class CircularProgressPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = ResColors.white
+      ..color = ResColors.background
       ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.03
+      ..strokeWidth = size.width * 0.04
       ..strokeCap = StrokeCap.round;
 
     final center = Offset(size.width / 2, size.height / 2);
@@ -147,7 +147,7 @@ class CircularProgressPainter extends CustomPainter {
     canvas.drawCircle(
       center,
       radius,
-      paint..color = ResColors.white.withAlpha(100),
+      paint..color = ResColors.black.withAlpha(50),
     );
 
     // Draw progress arc
@@ -159,7 +159,7 @@ class CircularProgressPainter extends CustomPainter {
       -math.pi / 2,
       2 * math.pi * progress,
       false,
-      paint..color = ResColors.white,
+      paint..color = ResColors.black,
     );
   }
 
