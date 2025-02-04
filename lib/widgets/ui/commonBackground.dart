@@ -1,28 +1,19 @@
 import 'dart:math' as math;
 import 'dart:ui';
 import 'package:flash_note/l10n/l10n.dart';
-import 'package:flash_note/resources/res_assets.dart';
 import 'package:flash_note/resources/res_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class CommonBackground extends StatefulWidget {
-  final List<Widget>? actions;
-  final Widget? leading;
-  final void Function()? leadingOnPressed;
-  final bool isDrawer;
-  final String title;
   final Widget child;
+  final bool showBackground;
 
   const CommonBackground({
     super.key,
-    this.actions,
-    this.leading,
-    this.isDrawer = false,
-    this.leadingOnPressed,
-    this.title = '',
     required this.child,
+    this.showBackground = true,
   });
 
   @override
@@ -35,17 +26,18 @@ class _CommonBackgroundState extends State<CommonBackground>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 30),
+      duration: const Duration(seconds: 60),
       vsync: this,
     )..repeat();
   }
 
   Widget animatedBackground() {
+    if (!widget.showBackground) return const SizedBox.shrink();
+
     return Positioned(
-      top: 0.6.sh,
+      top: 0.5.sh,
       left: 0,
       right: 0,
       bottom: 0,
@@ -59,7 +51,7 @@ class _CommonBackgroundState extends State<CommonBackground>
         },
         child: OverflowBox(
           maxHeight: 1.sh,
-          maxWidth: 1.8.sw,
+          maxWidth: 1.5.sw,
           child: Transform(
             transform: Matrix4.rotationZ(0.5),
             alignment: Alignment.center,
@@ -118,48 +110,13 @@ class _CommonBackgroundState extends State<CommonBackground>
             color: ResColors.white.withAlpha(100),
           ),
         ),
-        SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              //TODO: Header
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: widget.leadingOnPressed ??
-                          (widget.isDrawer
-                              ? () => Scaffold.of(context).openDrawer()
-                              : () => Navigator.of(context).pop()),
-                      child: SvgPicture.asset(
-                        widget.isDrawer
-                            ? ResAssets.menuIcon
-                            : ResAssets.backArrow,
-                        width: 40.w,
-                      ),
-                    ),
-                    if (widget.leading != null) widget.leading!,
-                    SizedBox(width: 6.w),
-                    Text(
-                      widget.isDrawer ? l10n?.menu ?? "" : l10n?.back ?? "",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    const Spacer(),
-                    if (widget.actions != null) ...widget.actions!,
-                  ],
-                ),
-              ),
-              //TODO: Body
-              Expanded(
-                child: widget.child,
-              ),
-            ],
-          ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: widget.child,
+            ),
+          ],
         ),
       ],
     );
@@ -167,6 +124,7 @@ class _CommonBackgroundState extends State<CommonBackground>
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 }

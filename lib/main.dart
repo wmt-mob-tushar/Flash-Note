@@ -15,6 +15,7 @@ import 'package:flash_note/utils/navigation_service.dart';
 import 'package:flash_note/utils/routes.dart';
 import 'package:flash_note/utils/shared_pref_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -24,6 +25,10 @@ import 'package:redux/redux.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  ));
 
   // for IOS update Info.plist file
   // <key>LSApplicationQueriesSchemes</key>
@@ -115,8 +120,8 @@ class _MyAppState extends State<MyApp> {
                 fontFamily: FontFamily.primary,
                 primarySwatch: ResColors.primarySwatch,
                 colorScheme: ColorScheme.fromSeed(
-                  seedColor: ResColors.primary,
-                  surface: ResColors.black,
+                  seedColor: ResColors.black,
+                  surface: ResColors.white,
                 ),
               ),
             );
@@ -152,16 +157,13 @@ class _MyAppState extends State<MyApp> {
         );
       case Routes.notesRoute:
         return MaterialPageRoute(
-          builder: (context) => const Notes(),
+          builder:(context) => Notes(
+            foldersId: settings.arguments! as String,
+          ),
         );
       case Routes.noteDetailsRoute:
-        final args = settings.arguments as Map<String, dynamic>?;
-        return MaterialPageRoute(
-          builder: (context) => const NotesDetails(
-              /*noteId: args?['noteId'],
-            title: args?['title'],
-            content: args?['content'],*/
-              ),
+        return CustomPageRoute(
+          child: NotesDetails(),
         );
       case Routes.profileRoute:
         return MaterialPageRoute(

@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
     }
   }
 
-  void onLoginTap() {
+  Future<void> onLoginTap() async {
     FocusManager.instance.primaryFocus?.unfocus();
     if (_formKey.currentState?.validate() ?? false) {
       _bloc.emailLogin(
@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                             snapshot.data ?? false
                                 ? Icons.visibility
                                 : Icons.visibility_off,
-                            color: Colors.black,
+                            color: ResColors.black,
                           ),
                         ),
                         validator: (value) =>
@@ -208,6 +208,7 @@ class _LoginState extends State<Login> {
               child: CommonAppButton(
                 onTap: () => _bloc.signInWithGoogle(),
                 text: context.l10n?.singInWithGoogle ?? '',
+                textColor: ResColors.black,
                 isOutlined: true,
               ),
             ),

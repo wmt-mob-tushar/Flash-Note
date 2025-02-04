@@ -1,6 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flash_note/networking/api_response.dart';
-import 'package:flash_note/networking/model/genrerate_folder_model.dart';
+import 'package:flash_note/networking/model/fetch_folder_data.dart';
 import 'package:flash_note/redux/app_store.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:snug_logger/snug_logger.dart';
@@ -8,16 +9,16 @@ import 'package:snug_logger/snug_logger.dart';
 class HomeBloc {
   final BehaviorSubject<bool> _isLoading = BehaviorSubject<bool>.seeded(false);
 
-  final BehaviorSubject<ApiResponse<GenerateFolderModel>> _createFolder =
-      BehaviorSubject<ApiResponse<GenerateFolderModel>>();
+  final BehaviorSubject<ApiResponse<FetchFolderData>> _createFolder =
+      BehaviorSubject<ApiResponse<FetchFolderData>>();
 
-  BehaviorSubject<ApiResponse<GenerateFolderModel>> get createFolder =>
+  BehaviorSubject<ApiResponse<FetchFolderData>> get createFolder =>
       _createFolder;
 
-  final BehaviorSubject<List<GenerateFolderModel>> _folders =
-      BehaviorSubject<List<GenerateFolderModel>>();
+  final BehaviorSubject<List<FetchFolderData>> _folders =
+      BehaviorSubject<List<FetchFolderData>>();
 
-  BehaviorSubject<List<GenerateFolderModel>> get folders => _folders;
+  BehaviorSubject<List<FetchFolderData>> get folders => _folders;
 
   Stream<bool> get isLoading => _isLoading.stream;
 
@@ -32,19 +33,17 @@ class HomeBloc {
     try {
       setLoading(true);
 
-      final DateTime currentDate = DateTime.now();
-
       final DatabaseReference databaseReference = _dbRef.push();
 
       snugLog('databaseReference: ${databaseReference.key}');
 
-      final GenerateFolderModel folder = GenerateFolderModel(
-        id: databaseReference.key,
-        name: folderName,
-        date: currentDate.millisecondsSinceEpoch,
-      );
+      final FetchFolderData folder = FetchFolderData();
 
-      await databaseReference.set(folder.toJson());
+      await databaseReference.set({
+        "id": databaseReference.key,
+        "folderName": folderName,
+        "createdAt": ServerValue.timestamp,
+      });
       _createFolder.sink.add(ApiResponse.completed(folder));
       setLoading(false);
     } catch (e) {
@@ -57,18 +56,20 @@ class HomeBloc {
   Future<void> fetchFolders() async {
     try {
       setLoading(true);
-      _dbRef.orderByChild('date').onValue.listen((event) {
+      _dbRef.onValue.listen((event) {
         if (event.snapshot.exists) {
-          final List<GenerateFolderModel> folders = <GenerateFolderModel>[];
+          final List<FetchFolderData> folders = <FetchFolderData>[];
 
           final Map<String, dynamic> data =
-              Map<String, dynamic>.from(event.snapshot.value as Map);
+              Map<String, dynamic>.from((event.snapshot.value ?? "") as Map);
 
           data.forEach((key, value) {
-            final GenerateFolderModel folder =
-                GenerateFolderModel.fromJson(value);
+            final FetchFolderData folder = FetchFolderData.fromJson(value);
             folders.add(folder);
           });
+
+          //sort data on createdAt
+          folders.sort((a, b) => b.createdAt!.compareTo(a.createdAt!));
 
           _folders.sink.add(folders);
           setLoading(false);

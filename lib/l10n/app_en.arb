@@ -29,8 +29,18 @@
   "userName": "User Name",
   "enterUserName": "Please enter your user name.",
   "signupSuccess": "Sign Up Successful",
-  "back": "BACK",
-  "menu": "MENU",
+  "back": "Back",
+  "menu": "Menu",
+  "allFolder": "All Folders",
+  "thisMonth": "This Month",
+  "notes": "notes",
+  "createFolder": "Create Folder",
+  "addFolder": "Add Folder",
+  "enterFolderName": "Please enter folder name.",
+  "noFolderFound": "No folder found.",
+  "folderCreatedSuccess": "Folder created successfully.",
+  "personalNotes": "Personal Notes",
+  "done": "Done",
 
   "@_COMMANDS": {
     "flutter gen-l10n": "Run this command in terminal after adding new value to localization."

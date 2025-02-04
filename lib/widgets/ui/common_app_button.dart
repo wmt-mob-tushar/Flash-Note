@@ -9,6 +9,7 @@ class CommonAppButton extends StatelessWidget {
   final Color? color;
   final bool isOutlined;
   final bool? isLoading;
+  final Color? textColor;
 
   const CommonAppButton({
     super.key,
@@ -18,6 +19,7 @@ class CommonAppButton extends StatelessWidget {
     this.color,
     this.isOutlined = false,
     this.isLoading = false,
+    this.textColor,
   });
 
   @override
@@ -45,7 +47,7 @@ class CommonAppButton extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
-                  color: ResColors.textPrimary,
+                  color: textColor ?? ResColors.white,
                 ),
               ),
             ),

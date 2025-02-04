@@ -113,27 +113,25 @@ class _CommonAuthBackgroundState extends State<CommonAuthBackground> with Single
             );
           },
         ),
-        SafeArea(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 0.15.sh,
-              ),
-              Expanded(  // Wrap in Expanded
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: ResColors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30),
-                    ),
+        Column(
+          children: [
+            SizedBox(
+              height: 0.15.sh,
+            ),
+            Expanded(  // Wrap in Expanded
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: ResColors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30),
+                    topRight: Radius.circular(30),
                   ),
-                  width: 1.sw,
-                  child: widget.child,
                 ),
+                width: 1.sw,
+                child: widget.child,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );
