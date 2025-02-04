@@ -1,6 +1,7 @@
 import 'package:flash_note/l10n/l10n.dart';
 import 'package:flash_note/resources/res_colors.dart';
 import 'package:flash_note/screens/auth/notes_details/bloc/notes_details_bloc.dart';
+import 'package:flash_note/utils/constants.dart';
 import 'package:flash_note/widgets/ui/commonBackground.dart';
 import 'package:flash_note/widgets/ui/common_appbar.dart';
 import 'package:flutter/material.dart';

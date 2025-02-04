@@ -51,7 +51,8 @@ class _NotesState extends State<Notes> {
     Note(
       type: 'markdown',
       title: "Today's Quote",
-      content: '> "Keep your face to the sunshine and you cannot see a shadow."',
+      content:
+          '> "Keep your face to the sunshine and you cannot see a shadow."',
       date: 'DEC 05/23',
       color: Color(0xFFFFF8E1),
     ),
@@ -196,34 +197,25 @@ The user interface (UI) is the space where interactions between humans and machi
           style: TextStyle(fontSize: 14.sp),
         ),
         SizedBox(height: 8.h),
-        ...note.todoItems!.map((item) => Row(
-          children: [
-            SizedBox(
-              width: 24.w,
-              height: 24.h,
-              child: Checkbox(
-                value: item.isDone,
-                onChanged: (value) {
-                  setState(() {
+        ...note.todoItems!.map(
+          (item) => Row(
+            children: [
+              SizedBox(
+                width: 24.w,
+                height: 24.h,
+                child: Checkbox(
+                  value: item.isDone,
+                  onChanged: (value) => setState(() {
                     item.isDone = value ?? false;
-                  });
-                },
+                  }),
+                ),
               ),
-            ),
-            SizedBox(width: 8.w),
-            Text(
-              item.text,
-              style: TextStyle(fontSize: 14.sp),
-            ),
-          ],
-        )).toList(),
-        SizedBox(height: 8.h),
-        ElevatedButton(
-          onPressed: () {},
-          child: Text('Today'),
-          style: ElevatedButton.styleFrom(
-            minimumSize: Size(60.w, 30.h),
-            padding: EdgeInsets.symmetric(horizontal: 12.w),
+              SizedBox(width: 8.w),
+              Text(
+                item.text,
+                style: TextStyle(fontSize: 14.sp),
+              ),
+            ],
           ),
         ),
       ],
