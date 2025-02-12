@@ -166,7 +166,9 @@ class _HomeState extends State<Home> {
                         child: Text(
                           context.l10n?.noFolderFound ?? "",
                           style: TextStyle(
-                              fontSize: 16.sp, color: ResColors.textSecondary),
+                            fontSize: 16.sp,
+                            color: ResColors.textSecondary,
+                          ),
                         ),
                       );
                     }

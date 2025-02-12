@@ -23,6 +23,7 @@ class ResColors {
   static const Color textColorDisabled = Color(0xFFBDBDBD);
   static const Color textColorLink = Color(0xFF2196F3);
   static const Color textColorError = Color(0xFFE53935);
+  static const Color transparent = Color(0x00000000);
 
   // Primary Swatch
   static const primarySwatch = material.MaterialColor(

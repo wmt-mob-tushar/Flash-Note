@@ -40,7 +40,11 @@
   "noFolderFound": "No folder found.",
   "folderCreatedSuccess": "Folder created successfully.",
   "personalNotes": "Personal Notes",
-  "done": "Done",
+  "done": "DONE",
+  "startTypingHere": "Start typing here ...",
+  "title": "Title",
+  "tags": "Add Tags",
+  "addMoretags": "Add More...",
 
   "@_COMMANDS": {
     "flutter gen-l10n": "Run this command in terminal after adding new value to localization."

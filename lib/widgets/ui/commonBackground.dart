@@ -1,19 +1,19 @@
 import 'dart:math' as math;
 import 'dart:ui';
-import 'package:flash_note/l10n/l10n.dart';
-import 'package:flash_note/resources/res_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flash_note/resources/res_colors.dart';
 
 class CommonBackground extends StatefulWidget {
   final Widget child;
   final bool showBackground;
+  final bool isAnimated;
 
   const CommonBackground({
     super.key,
     required this.child,
     this.showBackground = true,
+    this.isAnimated = true,
   });
 
   @override
@@ -22,72 +22,49 @@ class CommonBackground extends StatefulWidget {
 
 class _CommonBackgroundState extends State<CommonBackground>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  AnimationController? _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 60),
-      vsync: this,
-    )..repeat();
+    if (widget.isAnimated) {
+      _controller = AnimationController(
+        duration: const Duration(seconds: 60),
+        vsync: this,
+      )..repeat();
+    }
   }
 
-  Widget animatedBackground() {
-    if (!widget.showBackground) return const SizedBox.shrink();
-
-    return Positioned(
-      top: 0.5.sh,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      child: AnimatedBuilder(
-        animation: _controller,
-        builder: (context, child) {
-          return Transform.rotate(
-            angle: _controller.value * 2 * math.pi,
-            child: child,
-          );
-        },
-        child: OverflowBox(
-          maxHeight: 1.sh,
-          maxWidth: 1.5.sw,
-          child: Transform(
-            transform: Matrix4.rotationZ(0.5),
-            alignment: Alignment.center,
+  Widget _staticBackground() {
+    return OverflowBox(
+      maxHeight: 1.sh,
+      maxWidth: 1.5.sw,
+      child: Transform.rotate(
+        angle: 1,
+        child: Container(
+          padding: EdgeInsets.all(80.w),
+          decoration: const BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  color: ResColors.primary, blurRadius: 50, spreadRadius: 70),
+            ],
+          ),
+          child: Container(
+            decoration: const BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                    color: ResColors.secondary,
+                    blurRadius: 50,
+                    spreadRadius: 100),
+              ],
+            ),
             child: Container(
               decoration: const BoxDecoration(
+                color: ResColors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: ResColors.primary,
-                    blurRadius: 50,
-                    spreadRadius: 70,
-                  ),
+                      color: ResColors.white, blurRadius: 50, spreadRadius: 30),
                 ],
-              ),
-              padding: EdgeInsets.all(80.w),
-              child: Container(
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: ResColors.secondary,
-                      blurRadius: 50,
-                      spreadRadius: 100,
-                    ),
-                  ],
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: ResColors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: ResColors.white,
-                        blurRadius: 50,
-                        spreadRadius: 30,
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ),
           ),
@@ -96,27 +73,41 @@ class _CommonBackgroundState extends State<CommonBackground>
     );
   }
 
+  Widget _animatedBackground() {
+    if (!widget.isAnimated || _controller == null) return _staticBackground();
+
+    return AnimatedBuilder(
+      animation: _controller!,
+      builder: (context, child) {
+        return Transform.rotate(
+          angle: (_controller?.value ?? 0) * 2 * math.pi,
+          child: child,
+        );
+      },
+      child: _staticBackground(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final l10n = context.l10n;
-
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        animatedBackground(),
+        if (widget.showBackground)
+          Positioned(
+            top: 0.5.sh,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _animatedBackground(),
+          ),
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Container(
-            color: ResColors.white.withAlpha(100),
-          ),
+          child: Container(color: ResColors.white.withAlpha(100)),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Expanded(
-              child: widget.child,
-            ),
-          ],
+          children: [Expanded(child: widget.child)],
         ),
       ],
     );
@@ -124,7 +115,7 @@ class _CommonBackgroundState extends State<CommonBackground>
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 }
